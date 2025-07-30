@@ -1,5 +1,6 @@
 // src/components/ChatList.jsx
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 
 const USERS = [
   { email: 'doctor@example.com', role: 'doctor' },
@@ -8,10 +9,17 @@ const USERS = [
 
 export default function ChatList({ user, onSelectChat }) {
   const otherUsers = USERS.filter((u) => u.email !== user.email);
+  const navigate = useNavigate();
 
   return (
     <div className="w-1/3 border-r p-4">
       <h2 className="text-xl font-bold mb-4">Chats</h2>
+      <div>
+        <button onClick={() => {
+          localStorage.removeItem("token");
+          navigate("/")
+        }}>logout</button>
+      </div>
       <ul>
         {otherUsers.map((u) => (
           <li key={u.email}>
